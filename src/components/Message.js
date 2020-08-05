@@ -3,8 +3,8 @@ import React from 'react'
 import { CardContent, Typography, Card } from '@material-ui/core';
 import './Message.css'
 
-function Message({ userName, message }) {
-    const isUser = userName === message.userName;
+function Message({ username, message }) {
+    const isUser = username === message.username;
     return (
         <div className={`message ${isUser && 'message-user'}`}>
             <Card className={isUser ? "message-user-card" : "message-guest-card"}>
@@ -14,7 +14,7 @@ function Message({ userName, message }) {
                         variant="h5"
                         component="h2"
                     >
-                        {message.userName} : {message.text}
+                        {message.username} : {message.message}
                     </Typography>
                 </CardContent>
             </Card>

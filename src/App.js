@@ -2,15 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { Button, FormControl, InputLabel, Input } from '@material-ui/core';
 import './App.css';
 import Message from './components/Message';
+import { db } from './firebase';
 function App() {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([
-    { userName: 'Jack', text: 'Hey Gao Gao' },
-    { userName: 'Miranda', text: 'Hi Papa'}, 
-    { userName: 'Jess', text: 'Hi Miranda'}
+    // { userName: 'Jack', message: 'Hey Gao Gao' },
+    // { userName: 'Miranda', message: 'Hi Papa'}, 
+    // { userName: 'Jess', message: 'Hi Miranda'}
   ]);
-  const [userName, setUserName] = useState('Thai');
+  const [username, setUsername] = useState('Thai');
 
+  //Database listener
+  useEffect(() => {
+    db.collection('messages').onSnapshot(snapshot => {
+      setMessages(snapshot.docs.map(doc => doc.data()))
+    })
+  }, [] )
 
   useEffect(() => {
     // setUserName(prompt('Please enter your name'));
@@ -19,7 +26,7 @@ function App() {
 
   const sendMessage = (event) => {
     event.preventDefault();
-    setMessages([...messages, {userName: userName, text: input}]);
+    setMessages([...messages, {username: username, message: input}]);
     setInput('')
   }
 
@@ -27,7 +34,7 @@ function App() {
   return (
     <div className="App">
       <h1>Facebook Messenger - Jack Dang</h1>
-      <h2>Welcome {userName}</h2>
+      <h2>Welcome {username}</h2>
       <form>
         <FormControl>
           <InputLabel>Enter a message...</InputLabel>
@@ -43,7 +50,7 @@ function App() {
       {/* messages themselves */}
       {
         messages.map(message => (
-          <Message userName = {userName} message={message} />
+          <Message username = {username} message={message} />
         ))
       }
     </div>
