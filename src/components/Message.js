@@ -1,12 +1,13 @@
 //es7 --- 'rfce' short key
-import React from 'react'
+import React, { forwardRef } from 'react'
+
 import { CardContent, Typography, Card } from '@material-ui/core';
 import './Message.css'
 
-function Message({ username, message }) {
+const Message = forwardRef(({ username, message }, ref) => {
     const isUser = username === message.username;
     return (
-        <div className={`message ${isUser && 'message-user'}`}>
+        <div ref={ref} className={`message ${isUser && 'message-user'}`}>
             <Card className={isUser ? "message-user-card" : "message-guest-card"}>
                 <CardContent>
                     <Typography
@@ -14,13 +15,13 @@ function Message({ username, message }) {
                         variant="h5"
                         component="h2"
                     >
-                        {message.username} : {message.message}
+                        {!isUser && `${message.username}: `} {message.message}
                     </Typography>
                 </CardContent>
             </Card>
         </div>
     )
-}
+})
 
 export default Message
 
