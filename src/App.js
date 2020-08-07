@@ -51,13 +51,13 @@ function App() {
     <div className="App">
       <img className="messenger-logo" src={logo} />
       <h1>Facebook Messenger - Jack Dang</h1>
-      <h2>Welcome {username}</h2>
+      <h2>Welcome {`${username|| 'Unknown User'}`}</h2>
       <form className="app__form">
-        <FormControl>
-          <Input value={input} onChange={e => setInput(e.target.value)} placeholder="Enter a message" />
+        <FormControl className="app__formControl">
+          <Input className="app__input" value={input} onChange={e => setInput(e.target.value)} placeholder="Enter a message" />
 
           {/*Send button */}
-          <IconButton disabled={!input} variant="contained" color="primary" type='submit' onClick={sendMessage}>
+          <IconButton className="app__iconButton" disabled={!input} variant="contained" color="primary" type='submit' onClick={sendMessage}>
             <SendIcon />
           </IconButton>
 
